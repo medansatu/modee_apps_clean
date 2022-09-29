@@ -9,6 +9,8 @@ import '../presentation/pages/Cart/cart_controller.dart';
 import '../presentation/pages/Cart/cart_presenter.dart';
 import '../presentation/pages/wishlist/wishlist_controller.dart';
 import '../presentation/pages/wishlist/wishlist_presenter.dart';
+import '../presentation/pages/Register/register_controller.dart';
+import '../presentation/pages/Register/register_presenter.dart';
 import '../../data/di/data_module.dart';
 import '../../domain/usecases/di/use_case_module.dart';
 
@@ -41,6 +43,8 @@ class AppModule {
     injector.registerDependency<WishlistPresenter>(
       () => WishlistPresenter(getWishlistUseCase: injector.get()),
     );
+    injector.registerDependency<RegisterController>(() => RegisterController(injector.get()),);
+    injector.registerDependency<RegisterPresenter>(() => RegisterPresenter(registerUseCase: injector.get()),);
   }
 
   static init() {

@@ -11,10 +11,12 @@ import '../../domain/repositories/category_repo.dart';
 import '../../domain/repositories/product_repo.dart';
 import '../../domain/repositories/cart_repo.dart';
 import '../../domain/repositories/wishlist_repo.dart';
+import '../../domain/repositories/register_repo.dart';
 import '../../data/repositories/data_categoty_repo.dart';
 import '../../data/repositories/data_product_repo.dart';
 import '../../data/repositories/data_cart_repo.dart';
 import '../../data/repositories/data_wishlist_repo.dart';
+import '../../data/repositories/data_register_repo.dart';
 import '../../data/misc/constant.dart';
 
 class DataModule {
@@ -37,5 +39,6 @@ class DataModule {
     injector.registerDependency<CategoryRepository>(() => CategoryRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<CartRepository>(() => CartRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<WishlistRepository>(() => WishlistRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
+    injector.registerDependency<RegisterRepository>(() => RegisterRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
   }
 }

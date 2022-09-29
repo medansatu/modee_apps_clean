@@ -30,7 +30,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
         key: globalKey,
         // body: SingleChildScrollView(
         body: ControlledWidgetBuilder<LoginController>(
-          builder: (BuildContext context, LoginController controller) => Stack(
+          builder: (BuildContext context, LoginController controller) => Stack(            
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                   TextInput(
                     controller: controller.usernameController,
                     type: TextInputType.emailAddress,
-                    text: "Email",
+                    text: "Username",
                   ),
                   PasswordInput(
                     controller: controller.passwordController,
@@ -65,7 +65,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                   Container(
                     margin:
                         const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.065,
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
@@ -82,9 +82,9 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        primary: const Color.fromRGBO(255, 130, 201, 1),
+                        backgroundColor: const Color.fromRGBO(255, 130, 201, 1),
                       ),
                     ),
                   ),

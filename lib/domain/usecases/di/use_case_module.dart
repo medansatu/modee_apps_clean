@@ -1,3 +1,4 @@
+import 'package:final_project_clean/domain/usecases/cases/register_use_case.dart';
 import 'package:injector/injector.dart';
 
 import '../cases/get_categories_use_case.dart';
@@ -15,5 +16,6 @@ class UseCaseModule {
     injector.registerDependency<GetCategories>(() => GetCategories(injector.get()));
     injector.registerDependency<GetCart>(() => GetCart(injector.get()));
     injector.registerDependency<GetWishlist>(() => GetWishlist(injector.get()));
+    injector.registerDependency<RegisterCase>(() => RegisterCase(injector.get()));
   }
 }
