@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'package:injector/injector.dart';
+
 import './app/di/app_module.dart';
 import './app/presentation/pages/login/login_page.dart';
 import './app/presentation/pages/Register/register_page.dart';
 import './app/presentation/pages/Home/home_page.dart';
 import './app/presentation/pages/Cart/cart_page.dart';
 import './app/presentation/pages/wishlist/wishlist_page.dart';
+import './app/navigator.dart';
 
 
 void main() {
@@ -19,23 +22,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final appNavigator = Injector.appInstance.get<AppNavigator>();
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      theme: ThemeData(        
+        primarySwatch: Colors.pink,
         primaryColor: Colors.black,
         accentColor: const Color.fromRGBO(255, 130, 201, 1),
       ),
       home: RegisterPage(),
+      onGenerateRoute: appNavigator.onGenerateRoutes,
     );
   }
 }

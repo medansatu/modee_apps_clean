@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class LoginRegisterButton extends StatelessWidget {
   final String text;
-  final Function loginbutton;
+  final VoidCallback action;
+  
   // final String routeName;
 
   LoginRegisterButton({
     required this.text,
-    required this.loginbutton,
+    required this.action,
     // required this.routeName,
   });
 
@@ -19,7 +20,7 @@ class LoginRegisterButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          loginbutton;
+          action();
           // Navigator.of(context).pushReplacementNamed(routeName);
         },
         child: Text(
@@ -32,7 +33,7 @@ class LoginRegisterButton extends StatelessWidget {
         ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(30),
           ),
           primary: const Color.fromRGBO(255, 130, 201, 1),
         ),

@@ -14,6 +14,7 @@ import '../../widgets/login_register_button.dart';
 
 class RegisterPage extends View {
   RegisterPage({Key? key}) : super(key: key);
+  static const routeName = '/register';
 
   @override
   State<StatefulWidget> createState() {
@@ -84,14 +85,8 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                       text1: "Already Have an Account?",
                       text2: "Login Here!",
                     ),
-                    Container(
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      height: MediaQuery.of(context).size.height * 0.065,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if(controller.passwordController.text == controller.confirmPasswordController.text){
+                    LoginRegisterButton(text: "Register", action: (){
+                      if(controller.passwordController.text == controller.confirmPasswordController.text){
                             controller.registerNow(
                             controller.nameController.text,
                             controller.usernameController.text,
@@ -103,23 +98,7 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                           }
                           print("ERROR");                      
                           // Navigator.of(context).pushReplacementNamed(routeName);
-                        },
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          backgroundColor: const Color.fromRGBO(255, 130, 201, 1),
-                        ),
-                      ),
-                    ),
+                    }),                    
                   ],
             ),
           ),

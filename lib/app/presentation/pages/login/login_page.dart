@@ -14,6 +14,7 @@ import '../../widgets/login_register_button.dart';
 
 class LoginPage extends View {
   LoginPage({Key? key}) : super(key: key);
+  static const routeName = '/login';
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +31,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
         key: globalKey,
         // body: SingleChildScrollView(
         body: ControlledWidgetBuilder<LoginController>(
-          builder: (BuildContext context, LoginController controller) => Stack(            
+          builder: (BuildContext context, LoginController controller) => Stack(
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -58,44 +59,24 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                     text2: "Register Here!",
                     // routeName: RegisterScreen.routeName,
                   ),
-                  // LoginRegisterButton(
-                  //   text: "Login",
-                  //   loginbutton: controller.getUser(usernameController.text, passwordController.text),
-                  // ),
-                  Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    height: MediaQuery.of(context).size.height * 0.065,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        controller.loginNow(controller.usernameController.text, controller.passwordController.text);
-                        // Navigator.of(context).pushReplacementNamed(routeName);
-                      },
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        backgroundColor: const Color.fromRGBO(255, 130, 201, 1),
-                      ),
-                    ),
+                  LoginRegisterButton(
+                    text: "Login",
+                    action: () => controller.loginNow(controller.usernameController.text, controller.passwordController.text),
                   ),
                 ],
               ),
-              controller.isLoading ? Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
-                child: Center(child: CircularProgressIndicator(color: Theme.of(context).accentColor,),)
-              ) : SizedBox(),
+              controller.isLoading
+                  ? Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration:
+                          BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ))
+                  : SizedBox(),
             ],
           ),
         ),

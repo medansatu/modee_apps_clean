@@ -38,7 +38,7 @@ class _PasswordInputState extends State<PasswordInput> {
               decoration: InputDecoration(
                 hintText: widget.text,
                 border: InputBorder.none,
-                suffixIcon: IconButton(icon: showPass ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),                
+                suffixIcon: IconButton(icon: showPass ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),           
                 onPressed: visibility)
               ),
             ),
