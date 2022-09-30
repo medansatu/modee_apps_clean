@@ -5,6 +5,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import './home_presenter.dart';
 import '../../../../domain/entitites/product.dart';
 import '../../../../domain/entitites/category.dart';
+import '../CategoryItems/category_items_page.dart';
+import '../../pages/ProductDetail/product_detail_page.dart';
 
 class HomeController extends Controller {
   final HomePresenter _presenter;
@@ -45,14 +47,29 @@ class HomeController extends Controller {
       _hideLoading();
     };
     _presenter.onFinishGetCategories = () {
-      _hideLoading();
-    };
+      // _hideLoading();
+    };      
     _presenter.onSuccessGetProducts = (List<Product> data) {
       _products = data;
     };
     _presenter.onSuccessGetCategories = (List<Category> data) {
       _categories = data;
-    };
+    };  
+    // _presenter.stopLoading = (){
+    //   if(_getCategoriesFinish && _getProductsFinish) {
+    //   _hideLoading();
+    // }
+    // };    
+  }
+
+  void navigateToCategoryItems(List<Product> product, Category category) {
+    final context = getContext();
+    Navigator.pushNamed(context, CategoryItemsPage.routeName, arguments: {'category' : category, 'products' : product});
+  }
+
+  void navigateToProductDetail(Product arguments) {
+    final context = getContext();
+    Navigator.pushNamed(context, ProductDetailPage.routeName, arguments: arguments);
   }
 
   void _showLoading() {

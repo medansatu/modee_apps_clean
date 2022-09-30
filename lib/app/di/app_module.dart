@@ -11,6 +11,9 @@ import '../presentation/pages/wishlist/wishlist_controller.dart';
 import '../presentation/pages/wishlist/wishlist_presenter.dart';
 import '../presentation/pages/Register/register_controller.dart';
 import '../presentation/pages/Register/register_presenter.dart';
+import '../presentation/pages/CategoryItems/category_items_controller.dart';
+import '../presentation/pages/ProductDetail/product_detail_controller.dart';
+import '../presentation/pages/Tabs/tabs_controller.dart';
 import '../../data/di/data_module.dart';
 import '../../domain/usecases/di/use_case_module.dart';
 import '../navigator.dart';
@@ -50,6 +53,9 @@ class AppModule {
     injector.registerDependency<RegisterPresenter>(
       () => RegisterPresenter(registerUseCase: injector.get()),
     );
+    injector.registerDependency<CategoryItemsController>(() => CategoryItemsController());
+    injector.registerDependency<ProductDetailController>(() => ProductDetailController());
+    injector.registerDependency<TabsController>(() => TabsController());
 
     // Navigator
     injector.registerSingleton<AppNavigator>(

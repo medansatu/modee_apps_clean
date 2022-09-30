@@ -8,6 +8,7 @@ import './app/presentation/pages/Register/register_page.dart';
 import './app/presentation/pages/Home/home_page.dart';
 import './app/presentation/pages/Cart/cart_page.dart';
 import './app/presentation/pages/wishlist/wishlist_page.dart';
+import './app/presentation/pages/Tabs/tabs_page.dart';
 import './app/navigator.dart';
 
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         accentColor: const Color.fromRGBO(255, 130, 201, 1),
       ),
-      home: RegisterPage(),
+      home: TabsPage(0),
       onGenerateRoute: appNavigator.onGenerateRoutes,
     );
   }

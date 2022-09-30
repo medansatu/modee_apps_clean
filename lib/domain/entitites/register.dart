@@ -6,7 +6,7 @@ class Register {
   });
 
   factory Register.fromResponse(int response) {
-    final id = response ?? 0;
+    final id = response;
     return Register(id: id);
   }
 }

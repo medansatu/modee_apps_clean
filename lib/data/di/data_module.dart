@@ -17,7 +17,7 @@ import '../../data/repositories/data_product_repo.dart';
 import '../../data/repositories/data_cart_repo.dart';
 import '../../data/repositories/data_wishlist_repo.dart';
 import '../../data/repositories/data_register_repo.dart';
-import '../../data/misc/constant.dart';
+import '../../app/constant.dart';
 
 class DataModule {
   static registerClasses() {

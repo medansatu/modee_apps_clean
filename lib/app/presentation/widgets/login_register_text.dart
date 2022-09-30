@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class LoginRegisterText extends StatelessWidget {
   final String text1;
   final String text2;
-  // final String routeName;
+  final VoidCallback route;
 
   LoginRegisterText({
     required this.text1,
     required this.text2,
-    // required this.routeName,
+    required this.route,
   });
 
   @override
@@ -27,7 +27,7 @@ class LoginRegisterText extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Navigator.of(context).pushReplacementNamed(routeName);
+                      route();
                     },
                     child: Text(
                       text2,

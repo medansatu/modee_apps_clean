@@ -84,6 +84,7 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                     LoginRegisterText(
                       text1: "Already Have an Account?",
                       text2: "Login Here!",
+                      route: () => controller.navigateToLogin(),
                     ),
                     LoginRegisterButton(text: "Register", action: (){
                       if(controller.passwordController.text == controller.confirmPasswordController.text){

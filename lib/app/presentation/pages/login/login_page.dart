@@ -57,7 +57,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                   LoginRegisterText(
                     text1: "Don't Have Any Account?",
                     text2: "Register Here!",
-                    // routeName: RegisterScreen.routeName,
+                    route: () => controller.navigateToRegister(),
                   ),
                   LoginRegisterButton(
                     text: "Login",

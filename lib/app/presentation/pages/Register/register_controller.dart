@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import './register_presenter.dart';
 import '../../../../domain/entitites/register.dart';
+import '../login/login_page.dart';
 
 class RegisterController extends Controller {
   final RegisterPresenter _presenter;
@@ -62,6 +63,11 @@ class RegisterController extends Controller {
     _presenter.onSuccessRegister = (Register? data) {
       _register = data;
     };
+  }
+
+  void navigateToLogin() {
+    final context = getContext();
+    Navigator.pushReplacementNamed(context, LoginPage.routeName);
   }
 
   void _showLoading() {
