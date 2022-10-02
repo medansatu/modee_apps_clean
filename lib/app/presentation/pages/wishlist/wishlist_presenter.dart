@@ -37,7 +37,7 @@ class _GetWishlistObserver extends Observer<Wishlist> {
   
   @override
   void onNext(Wishlist? response) {
-    final wishlist = response ?? Wishlist(id: 0);
+    final wishlist = response ?? Wishlist(id: 0, wishlistItems: []);
     presenter.onSuccessGetWishlist(wishlist); 
   }
 }

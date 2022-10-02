@@ -1,6 +1,7 @@
 class User {
   final int id;
-  final String? name, userName, email, address, phoneNumber, imageUrl, token;
+  final String? name, userName, email, address, phoneNumber, imageUrl, token, message;
+  final bool? success;
 
   User({
     required this.id,
@@ -11,6 +12,8 @@ class User {
     required this.phoneNumber,
     this.imageUrl,
     required this.token,
+    required this.success,
+    this.message,
   });
 
   factory User.fromResponse(Map<String, dynamic> response) {
@@ -21,7 +24,9 @@ class User {
     final address = response["data"]["address"] ?? "";
     final phoneNumber = response["data"]["phoneNumber"] ?? "";
     final imageUrl = response["data"]["imageUrl"] ?? "";
-    final token = response["data"] ?? "";
+    final token = response["data"]["token"] ?? "";
+    final success = response["success"] ?? false;
+    final message = response["message"] ?? "";
 
     return User(
       id: id,
@@ -32,6 +37,8 @@ class User {
       phoneNumber: phoneNumber,
       imageUrl: imageUrl,
       token: token,
+      success: success,
+      message: message,
     );
   }
 }

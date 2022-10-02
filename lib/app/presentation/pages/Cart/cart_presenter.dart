@@ -37,7 +37,7 @@ class _GetCartObserver extends Observer<Cart> {
   
   @override
   void onNext(Cart? response) {
-    final cart = response ?? Cart(id: 0);
+    final cart = response ?? Cart(id: 0, cartItems: []);
     presenter.onSuccessGetCart(cart); 
   }
 }

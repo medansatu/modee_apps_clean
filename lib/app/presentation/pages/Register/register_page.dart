@@ -99,7 +99,8 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                           }
                           print("ERROR");                      
                           // Navigator.of(context).pushReplacementNamed(routeName);
-                    }),                    
+                    },
+                   ),                    
                   ],
             ),
           ),

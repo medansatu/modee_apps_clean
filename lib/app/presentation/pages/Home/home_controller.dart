@@ -16,6 +16,9 @@ class HomeController extends Controller {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool _isGetProductsFinish = false;
+  bool _isGetCategoriesFinish = false;
+
   List<Product> _products = [];
   List<Product> get products => _products;
 
@@ -55,11 +58,6 @@ class HomeController extends Controller {
     _presenter.onSuccessGetCategories = (List<Category> data) {
       _categories = data;
     };  
-    // _presenter.stopLoading = (){
-    //   if(_getCategoriesFinish && _getProductsFinish) {
-    //   _hideLoading();
-    // }
-    // };    
   }
 
   void navigateToCategoryItems(List<Product> product, Category category) {

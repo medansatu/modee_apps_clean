@@ -6,6 +6,7 @@ import 'package:injector/injector.dart';
 import '../../../../domain/entitites/product.dart';
 import '../../widgets/procut_detail.dart';
 import './product_detail_controller.dart';
+import '../Tabs/tabs_page.dart';
 
 class ProductDetailPage extends View{
   static const routeName = '/product-detail';
@@ -67,7 +68,7 @@ class _ProductDetailViewState extends ViewState<ProductDetailPage, ProductDetail
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabsScreen(1)));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabsPage(1)));
             },
             icon: Icon(
               Icons.shopping_bag,

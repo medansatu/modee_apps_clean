@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../misc/endpoints.dart';
 import '../../domain/entitites/cart.dart';
@@ -12,10 +13,33 @@ class CartRepositoryImpl implements CartRepository {
     required this.endpoints,
     required this.dio,
   });
+
+  Future<String?> _getToken() async {
+    final prefs = await SharedPreferences.getInstance();       
+    final token = prefs.getString("token");
+    return token;
+  }
+
+  Future<String?> _getProducts() async {
+    final prefs = await SharedPreferences.getInstance();       
+    final products = prefs.getString("products");
+    return products;
+  }
+  
   
   @override
   Future<Cart> cart() async {
-    dio.options.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwibmFtZSI6InN0cmluZyIsIm5iZiI6MTY2NDM2NzUzMywiZXhwIjoxNjY0NDUzOTMzLCJpYXQiOjE2NjQzNjc1MzN9.osWVmlFBu2RFRHsKZTeSH0Rr5yZ3XkIKOgkt7nKhdKT9-aLxRcHAXg6WMfEXnX6pPK6yXah6vArNckNObP-sKA';
+    String? token;
+    String? products;
+    await _getToken().then((value) {
+      token = value;
+    });
+
+    await _getProducts().then((value) => products = value);
+
+    print(products);
+
+    dio.options.headers['Authorization'] = 'Bearer $token';
     try {
       print("Masuk TRY");
       final response = await dio.get(endpoints.getCart);
@@ -23,6 +47,7 @@ class CartRepositoryImpl implements CartRepository {
       Cart cart = Cart(
         id: cartResponse['id'],
         cartItems: cartResponse['cartItems'],
+        products: products,
       );
       print("Selesai Get Cart");
       return cart;
@@ -30,4 +55,5 @@ class CartRepositoryImpl implements CartRepository {
       rethrow;
     }
   }
+
 }

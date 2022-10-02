@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         accentColor: const Color.fromRGBO(255, 130, 201, 1),
       ),
-      home: TabsPage(0),
+      home: LoginPage(),
       onGenerateRoute: appNavigator.onGenerateRoutes,
     );
   }

@@ -62,6 +62,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                   LoginRegisterButton(
                     text: "Login",
                     action: () => controller.loginNow(controller.usernameController.text, controller.passwordController.text),
+                    // route: () => controller.navigateToTabs(),
                   ),
                 ],
               ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import './presentation/pages/Register/register_page.dart';
 import './presentation/pages/login/login_page.dart';
-import 'presentation/pages/CategoryItems/category_items_page.dart';
-import 'presentation/pages/ProductDetail/product_detail_page.dart';
+import './presentation/pages/CategoryItems/category_items_page.dart';
+import './presentation/pages/ProductDetail/product_detail_page.dart';
+import './presentation/pages/Tabs/tabs_page.dart';
 import '../domain/entitites/product.dart';
 
 class AppNavigator {
@@ -22,6 +23,9 @@ class AppNavigator {
       case ProductDetailPage.routeName:
       final arguments = settings.arguments as Product;
       return MaterialPageRoute(builder: (BuildContext _) => ProductDetailPage(arguments));
+
+      case TabsPage.routeName:
+      return MaterialPageRoute(builder: (BuildContext _) => TabsPage(0));
     }
   }
 }

@@ -10,6 +10,7 @@ import '../wishlist/wishlist_page.dart';
 import '../Profile/profile_page.dart';
 
 class TabsPage extends View{
+  static const routeName = '/tabs';
   final int idx;
   TabsPage(this.idx, {Key? key}) : super(key: key);  
   
@@ -22,15 +23,18 @@ class TabsPage extends View{
 
 class _TabsViewState extends ViewState<TabsPage, TabsController> {
   _TabsViewState(super.controller);
-  List<Map<String, Object>> _pages = [];  
+  // List<Map<String, Object>> _pages = [];  
 
   
   int _selectedPageIndex = 0;
 
   @override
   void initState() {
-    _selectedPageIndex = widget.idx;
-    _pages = [
+    _selectedPageIndex = widget.idx;    
+    super.initState();
+  }
+
+  final List<Map<String, Object>> _pages = [
       {
         'page': HomePage(),
         'title' : 'Home',
@@ -48,8 +52,6 @@ class _TabsViewState extends ViewState<TabsPage, TabsController> {
         'title' : 'Profile',
       },
     ];
-    super.initState();
-  }
 
   void _selectPage(int index) {
     setState(() {

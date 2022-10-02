@@ -13,7 +13,7 @@ class WishlistController extends Controller {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Wishlist _wishlist = Wishlist(id: 0);
+  Wishlist _wishlist = Wishlist(id: 0, wishlistItems: []);
   Wishlist get wishlist => _wishlist;
   
   @override

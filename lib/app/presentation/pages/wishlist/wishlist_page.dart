@@ -6,6 +6,7 @@ import 'package:injector/injector.dart';
 
 import './wishlist_controller.dart';
 import '../../../../domain/entitites/wishlist.dart';
+import '../../../../domain/entitites/product.dart';
 
 class WishlistPage extends View {
   WishlistPage({Key? key}) : super(key: key);
@@ -27,9 +28,14 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
           title: Text("Wishlist"),
         ),
         body: ControlledWidgetBuilder<WishlistController>(
-          builder:(BuildContext _, WishlistController controller) => 
-          controller.isLoading 
+          builder:(BuildContext _, WishlistController controller) {
+            String? encodedProducts = controller.wishlist.products;
+            final products = Product.decode(encodedProducts.toString());
+            final selectedProduct = products.firstWhere((product) => product.id == controller.wishlist.wishlistItems[0]['productId']);
+
+            return controller.isLoading 
           ? const Center(child: CupertinoActivityIndicator())
-          : Center(child: Text(controller.wishlist.id.toString()))),
+          : controller.wishlist.wishlistItems.isEmpty ? Center(child: Text("Wishlist is empty")) : Center(child: Text(selectedProduct.productName.toString()));
+          }),
       );
 }

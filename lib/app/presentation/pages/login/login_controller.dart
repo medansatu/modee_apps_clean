@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './login_page.dart';
 import './login_presenter.dart';
 import '../../../../domain/entitites/user.dart';
 import '../Register/register_page.dart';
+import '../Tabs/tabs_page.dart';
 
 class LoginController extends Controller {
   final LoginPresenter _presenter;
@@ -15,7 +17,8 @@ class LoginController extends Controller {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  User? _user = User(name: "test", address: "test",email: "test",id: 0,phoneNumber: "08", token: "test", userName: "test", imageUrl: "test");
+  User? _user; 
+  // = User(name: "test", address: "test",email: "test",id: 0,phoneNumber: "08", token: "test", userName: "test", imageUrl: "test");
   User? get user => _user;
 
   TextEditingController _usernameController = TextEditingController();
@@ -33,11 +36,17 @@ class LoginController extends Controller {
   void _getUser(String username, String password) {
     _showLoading();
     _presenter.getUser(username, password);
-  }
+  } 
 
-
-  void loginNow(String username, String password) {
-    _getUser(username, password);
+  // masih bisa masuk walaupun username atau password salah
+  void loginNow(String username, String password) {    
+    _getUser(username, password);    
+    do {
+      Future.delayed(Duration(seconds: 1), () {
+        _navigateToTabs();
+      } ); 
+    } while (_user!.success == true);    
+    
   }
 
   void _initObserver() {
@@ -55,6 +64,11 @@ class LoginController extends Controller {
   void navigateToRegister() {
     final context = getContext();
     Navigator.pushReplacementNamed(context, RegisterPage.routeName);
+  }
+
+  void _navigateToTabs() async {
+    final context = getContext();
+    Navigator.pushReplacementNamed(context, TabsPage.routeName);
   }
 
   void _showLoading() {

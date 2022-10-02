@@ -13,7 +13,7 @@ class CartController extends Controller {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Cart _cart = Cart(id: 0);
+  Cart _cart = Cart(id: 0, cartItems: []);
   Cart get cart => _cart;
   
   @override

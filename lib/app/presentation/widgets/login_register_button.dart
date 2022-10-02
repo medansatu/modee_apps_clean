@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 class LoginRegisterButton extends StatelessWidget {
   final String text;
   final VoidCallback action;
-  
-  // final String routeName;
 
   LoginRegisterButton({
     required this.text,
     required this.action,
-    // required this.routeName,
   });
 
   @override
@@ -21,7 +18,7 @@ class LoginRegisterButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           action();
-          // Navigator.of(context).pushReplacementNamed(routeName);
+          // route();
         },
         child: Text(
           text,
