@@ -46,7 +46,7 @@ class AppModule {
       () => WishlistController(injector.get()),
     );
     injector.registerDependency<WishlistPresenter>(
-      () => WishlistPresenter(getWishlistUseCase: injector.get()),
+      () => WishlistPresenter(getWishlistUseCase: injector.get(), deleteFromWishlistUseCase: injector.get()),
     );
     injector.registerDependency<RegisterController>(
       () => RegisterController(injector.get()),

@@ -1,3 +1,4 @@
+import 'package:final_project_clean/domain/entitites/delete_response.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import '../../../../domain/entitites/cart.dart';
@@ -10,7 +11,7 @@ class CartPresenter extends Presenter {
   late Function(dynamic error) onErrorGetCart;
   late Function() onFinishGetCart;
 
-late Function(int?) onSuccessDeleteFromCart;
+  late Function(DeleteResponse?) onSuccessDeleteFromCart;
   late Function(dynamic error) onErrorDeleteFromCart;
   late Function() onFinishDeleteFromCart;  
 
@@ -56,7 +57,7 @@ class _GetCartObserver extends Observer<Cart> {
   }
 }
 
-class _DeleteFromCartObserver extends Observer<int> {
+class _DeleteFromCartObserver extends Observer<DeleteResponse> {
   final CartPresenter presenter;
 
   _DeleteFromCartObserver(this.presenter);
@@ -68,7 +69,7 @@ class _DeleteFromCartObserver extends Observer<int> {
   void onError(e) => presenter.onErrorDeleteFromCart(e);
 
   @override
-  void onNext(int? response) {
+  void onNext(DeleteResponse? response) {
     final cartItemId = response;
     presenter.onSuccessDeleteFromCart(cartItemId);
   }

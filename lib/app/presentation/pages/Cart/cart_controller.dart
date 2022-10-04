@@ -1,3 +1,4 @@
+import 'package:final_project_clean/domain/entitites/delete_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
@@ -10,14 +11,14 @@ class CartController extends Controller {
 
   CartController(this._presenter);
 
-  int? _cartItemId;
-  int? get cartItemId => _cartItemId;
+  DeleteResponse? _cartItem;
+  DeleteResponse? get cartItem => _cartItem;
 
   bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  bool get isLoading => _isLoading;  
 
-  // bool _isDeleted = false;
-  // bool get isDeleted => _isDeleted;
+  bool _isDeleted = false;
+  bool get isDeleted => _isDeleted;
 
   Cart _cart = Cart(id: 0, cartItems: []);
   Cart get cart => _cart;
@@ -48,8 +49,15 @@ class CartController extends Controller {
     _presenter.getCart();
   }
 
-  void deleteCart(int cartItemId) {
-    _presenter.deleteCart(cartItemId);         
+  Future<void> deleteCart(int cartItemId) async {    
+    _presenter.deleteCart(cartItemId); 
+    do {
+      await Future.delayed(const Duration(milliseconds: 100));
+    } while (!_isDeleted);    
+    if(cartItem?.success == true)  {
+      _presenter.getCart();
+      // refreshUI();
+    }    
   }
 
   void _initObserver() {
@@ -59,26 +67,25 @@ class CartController extends Controller {
       _hideLoading();
     };
     _presenter.onFinishDeleteFromCart = (){
-      // _successDelete();
+      _successDelete();
     };
     _presenter.onSuccessGetCart = (Cart data) {
       _cart = data;
     };
-    _presenter.onSuccessDeleteFromCart = (int? data) {
-      _cartItemId = data;
+    _presenter.onSuccessDeleteFromCart = (DeleteResponse? data) {
+      _cartItem = data;
       //  _successDelete();
     };
   }
 
-  // void _successDelete() async {
-  //   await Future.delayed(Duration(seconds: 1));
-  //   _isDeleted = true;
-  //   refreshUI();
-  // }
+  void _successDelete() {
+    _isDeleted = true;
+    // refreshUI();
+  }
 
   void _showLoading() {
     _isLoading = true;
-    // refreshUI();
+    refreshUI();
   }
 
   void _hideLoading() {

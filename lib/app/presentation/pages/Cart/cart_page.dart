@@ -12,6 +12,8 @@ import '../../../../domain/entitites/cart.dart';
 import '../../widgets/cart_items.dart';
 
 class CartPage extends View {
+  // final List<Product> products;
+
   CartPage({Key? key}) : super(key: key);
 
   @override
@@ -42,6 +44,7 @@ class _CartViewState extends ViewState<CartPage, CartController> {
         body: ControlledWidgetBuilder<CartController>(
             builder: (BuildContext _, CartController controller) {
           final products = controller.cart.products;
+          // final products = Product.decode(encodedProducts.toString());
 
           return controller.isLoading
               ? Center(
@@ -58,7 +61,7 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                           Icons.shopping_bag,
                           size: MediaQuery.of(context).size.height * 0.2,
                         ),
-                        Text(
+                        const Text(
                           "Your Cart is empty",
                           style: TextStyle(
                             fontSize: 16,
@@ -75,8 +78,8 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                               final cartItem = controller.cart.cartItems[index];
                               final selectedProduct = products!.firstWhere(
                                   (product) => product.id == controller.cart.cartItems[index]['productId']);
-                              controller.itemTotal = int.parse(selectedProduct.price.toString()) * int.parse(cartItem['quantity'].toString());
-                              controller.sumTotal();
+                              // controller.itemTotal = int.parse(selectedProduct.price.toString()) * int.parse(cartItem['quantity'].toString());
+                              // controller.sumTotal();
                               print(controller.grandTotal);                              
                               return CartItem(
                                   id: cartItem['id'],
@@ -92,12 +95,12 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                                       action: () => controller.deleteCart(cartItem['id']),);
                             })),
                       ),
-                      Container(
-                        child: Row(children: [
-                          Text("Total"),
-                          Text(controller.total().toString())                          
-                        ]),
-                      )
+                      // Container(
+                      //   child: Row(children: [
+                      //     Text("Total"),
+                      //     Text(controller.total().toString())                          
+                      //   ]),
+                      // )
                     ]);
         }),
       );

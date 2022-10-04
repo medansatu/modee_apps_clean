@@ -6,18 +6,20 @@ class WishlistItem extends StatelessWidget {
   final int id;
   final String productName, imageUrl;
   final int productId, price;
+  final VoidCallback action;
   const WishlistItem({
     required this.id,
     required this.productName,    
     required this.productId,
     required this.imageUrl,
     required this.price,
+    required this.action,
   });
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(id),
+      key: UniqueKey(),
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(
@@ -33,7 +35,9 @@ class WishlistItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) {},
+      onDismissed: (direction) {
+        action();
+      },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
         margin: EdgeInsets.symmetric(

@@ -48,7 +48,23 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
                     ),
                   )
               : controller.wishlist.wishlistItems.isEmpty
-                  ? Center(child: Text("Wishlist is empty"))
+                  ? Center(
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.heart_broken,
+                          size: MediaQuery.of(context).size.height * 0.2,
+                        ),
+                        const Text(
+                          "Your Wishlist is empty",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ))
                   : Column(children: [
                       Expanded(
                         child: ListView.builder(
@@ -68,7 +84,8 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
                                   productId: selectedProduct.id,
                                   imageUrl:
                                       selectedProduct.imageUrl.toString(),
-                                      price: int.parse(selectedProduct.price.toString()),);
+                                      price: int.parse(selectedProduct.price.toString()),
+                                      action: () => controller.deleteWishlist(wishlistItem['id']),);
                             })),
                       ),
                     ]);

@@ -8,7 +8,7 @@ class Endpoints {
   String get deleteCartItem => 'Cart/DeleteCartItem';
   String get addToWishlist => 'Wishlist/AddToWishlist';
   String get getWishlist => 'Wishlist/GetWishlist';
-  String get deleteWishlist => 'Wishlist/DeleteWishlist';
+  String get deleteWishlist => 'Wishlist/DeleteWishlistItem';
   String get getAllProduct => 'Product/GetAllProduct';
   String get getAllCategory => 'Category/GetAllCategory';
 }

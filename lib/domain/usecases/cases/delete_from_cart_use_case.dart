@@ -1,16 +1,17 @@
 import 'dart:async';
 
+import 'package:final_project_clean/domain/entitites/delete_response.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import '../../repositories/cart_repo.dart';
 
-class DeleteCartUseCase extends UseCase<int, DeleteCartParams> {
+class DeleteCartUseCase extends UseCase<DeleteResponse, DeleteCartParams> {
   final DeleteCartRepository repository;
   DeleteCartUseCase(this.repository);
   
   @override
-  Future<Stream<int?>> buildUseCaseStream(DeleteCartParams? params) async {
-    final streamController = StreamController<int>();
+  Future<Stream<DeleteResponse?>> buildUseCaseStream(DeleteCartParams? params) async {
+    final streamController = StreamController<DeleteResponse>();
     try {
       final cartItemId = await repository.deleteCart(params!.cartItemId);
       streamController.add(cartItemId);

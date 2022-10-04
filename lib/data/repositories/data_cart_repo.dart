@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:final_project_clean/domain/entitites/delete_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../misc/endpoints.dart';
@@ -117,7 +118,7 @@ class DeleteCartRepositoryImpl implements DeleteCartRepository {
   }
   
   @override
-  Future<int> deleteCart(int cartItemId) async {
+  Future<DeleteResponse> deleteCart(int cartItemId) async {
     String? token;
     String? id;
 
@@ -133,11 +134,11 @@ class DeleteCartRepositoryImpl implements DeleteCartRepository {
       print("TRY JALAN");
       final response = await dio.delete(endpoints.deleteCartItem+"?id="+id);
       print(response);
-      final deleteToCartResponse = response.data as Map<String, dynamic>;
-      int cartItemId = deleteToCartResponse['data']['id'];
-      print(cartItemId);
+      final deleteFromCartResponse = response.data as Map<String, dynamic>;
+      DeleteResponse deleteResponse = DeleteResponse(id: deleteFromCartResponse['data']['id'], success: deleteFromCartResponse['success']);
+      print(deleteResponse.success);
       print("SUKSES DELETE FROM CART");
-      return cartItemId;
+      return deleteResponse;
     } catch (e) {
       rethrow;
     }

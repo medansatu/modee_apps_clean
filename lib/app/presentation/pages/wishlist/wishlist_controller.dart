@@ -1,3 +1,4 @@
+import 'package:final_project_clean/domain/entitites/delete_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
@@ -9,6 +10,12 @@ class WishlistController extends Controller {
   final WishlistPresenter _presenter;
 
   WishlistController(this._presenter);
+
+  DeleteResponse? _wishlistItem;
+  DeleteResponse? get wishlistItem => _wishlistItem;
+
+  bool _isDeleted = false;
+  bool get isDeleted => _isDeleted;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -27,14 +34,35 @@ class WishlistController extends Controller {
     _presenter.getWishlist();
   }
 
+  Future<void> deleteWishlist(int wishlistItemId) async {    
+    _presenter.deleteWishlist(wishlistItemId); 
+    do {
+      await Future.delayed(const Duration(milliseconds: 100));
+    } while (!_isDeleted);    
+    if(_wishlistItem?.success == true)  {
+      _presenter.getWishlist();
+    }    
+  }
+
   void _initObserver() {
     _presenter.onErrorGetWishlist = (e) {};
+    _presenter.onErrorDeleteFromWishlist = (e) {};
     _presenter.onFinishGetWishlist = () {
       _hideLoading();
+    };
+    _presenter.onFinishDeleteFromWishlist = () {
+      _successDelete();
     };
     _presenter.onSuccessGetWishlist = (Wishlist data) {
       _wishlist = data;
     };
+    _presenter.onSuccessDeleteFromWishlist = (DeleteResponse? data) {
+      _wishlistItem = data;
+    };
+  }
+
+  void _successDelete() {
+    _isDeleted = true;
   }
 
   void _showLoading() {
