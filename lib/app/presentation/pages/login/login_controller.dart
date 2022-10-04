@@ -17,7 +17,7 @@ class LoginController extends Controller {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  User? _user; 
+  User? _user;
   // = User(name: "test", address: "test",email: "test",id: 0,phoneNumber: "08", token: "test", userName: "test", imageUrl: "test");
   User? get user => _user;
 
@@ -36,17 +36,16 @@ class LoginController extends Controller {
   void _getUser(String username, String password) {
     _showLoading();
     _presenter.getUser(username, password);
-  } 
-
-  // masih bisa masuk walaupun username atau password salah
-  void loginNow(String username, String password) {    
-    _getUser(username, password);    
+  }
+  
+  Future<void> loginNow(String username, String password) async {
+    _getUser(username, password);
     do {
-      Future.delayed(Duration(seconds: 1), () {
-        _navigateToTabs();
-      } ); 
-    } while (_user!.success == true);    
-    
+      await Future.delayed(const Duration(milliseconds: 100));
+    } while (_isLoading);
+    if (user?.success == true) {
+      _navigateToTabs();
+    }
   }
 
   void _initObserver() {

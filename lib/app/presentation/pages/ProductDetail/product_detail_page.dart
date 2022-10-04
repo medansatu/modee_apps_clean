@@ -8,29 +8,31 @@ import '../../widgets/procut_detail.dart';
 import './product_detail_controller.dart';
 import '../Tabs/tabs_page.dart';
 
-class ProductDetailPage extends View{
+class ProductDetailPage extends View {
   static const routeName = '/product-detail';
 
   final Product arguments;
 
   ProductDetailPage(this.arguments, {Key? key}) : super(key: key);
-  
+
   @override
   State<StatefulWidget> createState() {
-    final productDetailController = Injector.appInstance.get<ProductDetailController>();
+    final productDetailController =
+        Injector.appInstance.get<ProductDetailController>();
     return _ProductDetailViewState(productDetailController);
   }
 }
 
-class _ProductDetailViewState extends ViewState<ProductDetailPage, ProductDetailController> {
+class _ProductDetailViewState
+    extends ViewState<ProductDetailPage, ProductDetailController> {
   _ProductDetailViewState(super.controller);
-  
-  @override  
+
+  @override
   Widget get view {
     final product = widget.arguments;
 
-    Widget _buildBottomButton(
-        Color backgroundColor, String text, Color fontColor) {
+    Widget _buildBottomButton(Color backgroundColor, String text,
+        Color fontColor, VoidCallback action) {
       return Container(
         height: MediaQuery.of(context).size.height * 0.05,
         width: MediaQuery.of(context).size.width * 0.42,
@@ -42,7 +44,7 @@ class _ProductDetailViewState extends ViewState<ProductDetailPage, ProductDetail
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: () => action(),
             splashColor: Colors.pink,
             borderRadius: BorderRadius.circular(15),
             child: Center(
@@ -68,7 +70,8 @@ class _ProductDetailViewState extends ViewState<ProductDetailPage, ProductDetail
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabsPage(1)));
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => TabsPage(1)));
             },
             icon: Icon(
               Icons.shopping_bag,
@@ -83,15 +86,20 @@ class _ProductDetailViewState extends ViewState<ProductDetailPage, ProductDetail
         productName: product.productName,
         description: product.description,
       ),
-      bottomNavigationBar: Container(
-        color: Theme.of(context).primaryColor,
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildBottomButton(Colors.transparent, "Add to Wishlist", Theme.of(context).accentColor),
-            _buildBottomButton(Theme.of(context).accentColor, "Add to Cart", Theme.of(context).primaryColor),
-          ],
+      bottomNavigationBar: ControlledWidgetBuilder<ProductDetailController>(
+        builder: (BuildContext context, ProductDetailController controller) =>
+            Container(
+          color: Theme.of(context).primaryColor,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildBottomButton(Colors.transparent, "Add to Wishlist",
+                  Theme.of(context).accentColor, () => controller.addToWishlist(product.id)),
+              _buildBottomButton(Theme.of(context).accentColor, "Add to Cart",
+                  Theme.of(context).primaryColor, () => controller.addtoCart(product.id)),
+            ],
+          ),
         ),
       ),
     );

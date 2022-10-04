@@ -38,7 +38,6 @@ class _HomeViewState extends ViewState<HomePage, HomeController> {
   }
 
   @override
-  // TODO: implement view
   Widget get view => Scaffold(
         key: globalKey,
         appBar: AppBar(

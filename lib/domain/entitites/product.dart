@@ -57,6 +57,7 @@ class Product {
       description: map['description'] as String,
       price: map['price'] as int,
       stock: map['stock'] as int,
+      imageUrl: map['imageUrl'] as String,
       category: map['category'] as Map<String, dynamic>
     );
   }

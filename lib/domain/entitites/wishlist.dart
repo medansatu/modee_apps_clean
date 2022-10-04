@@ -1,7 +1,7 @@
 class Wishlist {
   final int id;
   final List wishlistItems;
-  final String? products;
+  final List? products;
 
   Wishlist({required this.id, required this.wishlistItems, this.products});
 

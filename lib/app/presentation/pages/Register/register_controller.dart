@@ -49,8 +49,14 @@ class RegisterController extends Controller {
   }
 
 
-  void registerNow(String name, String username, String email, String phoneNumber, String address, String password) {
+  Future<void> registerNow(String name, String username, String email, String phoneNumber, String address, String password) async {
     _registerUser(name, username, email, phoneNumber, address, password);
+    do {
+      await Future.delayed(const Duration(milliseconds: 100));
+    } while (_isLoading);
+    if (register?.id != 0) {
+      navigateToLogin();
+    }
   }
 
   void _initObserver() {

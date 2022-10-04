@@ -1,7 +1,7 @@
 class Cart {
   final int id;
   final List cartItems;
-  final String? products;
+  final List? products;
 
   Cart({required this.id, required this.cartItems, this.products});
 

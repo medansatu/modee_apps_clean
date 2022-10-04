@@ -13,6 +13,7 @@ import '../presentation/pages/Register/register_controller.dart';
 import '../presentation/pages/Register/register_presenter.dart';
 import '../presentation/pages/CategoryItems/category_items_controller.dart';
 import '../presentation/pages/ProductDetail/product_detail_controller.dart';
+import '../presentation/pages/ProductDetail/product_detail_presenter.dart';
 import '../presentation/pages/Tabs/tabs_controller.dart';
 import '../../data/di/data_module.dart';
 import '../../domain/usecases/di/use_case_module.dart';
@@ -39,7 +40,7 @@ class AppModule {
       () => CartController(injector.get()),
     );
     injector.registerDependency<CartPresenter>(
-      () => CartPresenter(getCartUseCase: injector.get()),
+      () => CartPresenter(getCartUseCase: injector.get(), deleteFromCartUseCase: injector.get()),
     );
     injector.registerDependency<WishlistController>(
       () => WishlistController(injector.get()),
@@ -54,7 +55,8 @@ class AppModule {
       () => RegisterPresenter(registerUseCase: injector.get()),
     );
     injector.registerDependency<CategoryItemsController>(() => CategoryItemsController());
-    injector.registerDependency<ProductDetailController>(() => ProductDetailController());
+    injector.registerDependency<ProductDetailPresenter>(() => ProductDetailPresenter(addToCartUseCase: injector.get(), addToWishlistUseCase: injector.get()));
+    injector.registerDependency<ProductDetailController>(() => ProductDetailController(injector.get()));
     injector.registerDependency<TabsController>(() => TabsController());
 
     // Navigator
