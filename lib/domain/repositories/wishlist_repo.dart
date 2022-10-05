@@ -1,5 +1,5 @@
 import '../entitites/wishlist.dart';
-import '../entitites/delete_response.dart';
+import '../entitites/general_response.dart';
 
 abstract class WishlistRepository{
   Future<Wishlist> wishlist();
@@ -10,5 +10,5 @@ abstract class AddWishlistRepository{
 }
 
 abstract class DeleteWishlistRepository{
-  Future<DeleteResponse> deleteWishlist(int wishlistItemId);
+  Future<GeneralResponse> deleteWishlist(int wishlistItemId);
 }

@@ -92,7 +92,9 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                                   productId: selectedProduct.id,
                                   imageUrl:
                                       selectedProduct.imageUrl.toString(),
-                                      action: () => controller.deleteCart(cartItem['id']),);
+                                      action: () => controller.deleteCart(cartItem['id']),
+                                      addQty: () => controller.updateCart(cartItem['id'], ((cartItem['quantity'] as int) + 1)),
+                                      deductQty: () => controller.updateCart(cartItem['id'], ((cartItem['quantity'] as int) - 1)),);
                             })),
                       ),
                       // Container(

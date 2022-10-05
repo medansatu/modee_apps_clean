@@ -1,4 +1,4 @@
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
+import 'package:final_project_clean/domain/entitites/general_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
@@ -11,8 +11,8 @@ class WishlistController extends Controller {
 
   WishlistController(this._presenter);
 
-  DeleteResponse? _wishlistItem;
-  DeleteResponse? get wishlistItem => _wishlistItem;
+  GeneralResponse? _wishlistItem;
+  GeneralResponse? get wishlistItem => _wishlistItem;
 
   bool _isDeleted = false;
   bool get isDeleted => _isDeleted;
@@ -41,6 +41,7 @@ class WishlistController extends Controller {
     } while (!_isDeleted);    
     if(_wishlistItem?.success == true)  {
       _presenter.getWishlist();
+      _isDeleted = false;
     }    
   }
 
@@ -56,7 +57,7 @@ class WishlistController extends Controller {
     _presenter.onSuccessGetWishlist = (Wishlist data) {
       _wishlist = data;
     };
-    _presenter.onSuccessDeleteFromWishlist = (DeleteResponse? data) {
+    _presenter.onSuccessDeleteFromWishlist = (GeneralResponse? data) {
       _wishlistItem = data;
     };
   }

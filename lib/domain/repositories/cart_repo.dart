@@ -1,4 +1,4 @@
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
+import 'package:final_project_clean/domain/entitites/general_response.dart';
 
 import '../entitites/cart.dart';
 
@@ -11,5 +11,9 @@ abstract class AddCartRepository{
 }
 
 abstract class DeleteCartRepository{
-  Future<DeleteResponse> deleteCart(int cartItemId);
+  Future<GeneralResponse> deleteCart(int cartItemId);
+}
+
+abstract class UpdateCartRepository{
+  Future<GeneralResponse> updateCart(int cartItemId, int quantity);
 }

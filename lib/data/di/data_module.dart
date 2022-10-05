@@ -1,3 +1,4 @@
+import 'package:final_project_clean/domain/repositories/profile_repo.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:dio/dio.dart';
@@ -17,6 +18,7 @@ import '../../data/repositories/data_product_repo.dart';
 import '../../data/repositories/data_cart_repo.dart';
 import '../../data/repositories/data_wishlist_repo.dart';
 import '../../data/repositories/data_register_repo.dart';
+import '../../data/repositories/data_profile_repo.dart';
 import '../../app/constant.dart';
 
 class DataModule {
@@ -44,5 +46,7 @@ class DataModule {
     injector.registerDependency<AddWishlistRepository>(() => AddWishlistRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<DeleteCartRepository>(() => DeleteCartRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<DeleteWishlistRepository>(() => DeleteWishlistRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
+    injector.registerDependency<ProfileRepository>(() => ProfileRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
+    injector.registerDependency<UpdateCartRepository>(() => UpdateCartRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
   }
 }

@@ -4,7 +4,7 @@ class Endpoints {
   String get profile => 'Auth/GetProfile';
   String get addToCart => 'Cart/AddToCart';
   String get getCart => 'Cart/GetCart';
-  String get editCart => 'Cart/EditCart';
+  String get editCart => 'Cart/EditCartItem';
   String get deleteCartItem => 'Cart/DeleteCartItem';
   String get addToWishlist => 'Wishlist/AddToWishlist';
   String get getWishlist => 'Wishlist/GetWishlist';

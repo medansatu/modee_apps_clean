@@ -10,8 +10,8 @@ import '../cases/add_to_wishlist_use_case.dart';
 import '../cases/register_use_case.dart';
 import '../cases/delete_from_cart_use_case.dart';
 import '../cases/delete_from_wishlist_use_case.dart';
-
-
+import '../cases/get_profile_use_case.dart';
+import '../cases/update_cart_use_case.dart';
 
 class UseCaseModule {
   static registerClasses() {
@@ -26,5 +26,7 @@ class UseCaseModule {
     injector.registerDependency<AddWishlistUseCase>(() => AddWishlistUseCase(injector.get()));
     injector.registerDependency<DeleteCartUseCase>(() => DeleteCartUseCase(injector.get()));
     injector.registerDependency<DeleteWishlistUseCase>(() => DeleteWishlistUseCase(injector.get()));
+    injector.registerDependency<GetProfileUseCase>(() => (GetProfileUseCase(injector.get())));
+    injector.registerDependency<UpdateCartUseCase>(() => UpdateCartUseCase(injector.get()));
   }
 }

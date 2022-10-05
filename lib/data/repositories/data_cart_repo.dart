@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
+import 'package:final_project_clean/domain/entitites/general_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../misc/endpoints.dart';
@@ -17,18 +17,17 @@ class CartRepositoryImpl implements CartRepository {
   });
 
   Future<String?> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();       
+    final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
     return token;
   }
 
   Future<String?> _getProducts() async {
-    final prefs = await SharedPreferences.getInstance();       
+    final prefs = await SharedPreferences.getInstance();
     final products = prefs.getString("products");
     return products;
   }
-  
-  
+
   @override
   Future<Cart> cart() async {
     String? token;
@@ -37,14 +36,14 @@ class CartRepositoryImpl implements CartRepository {
       token = value;
     });
 
-    await _getProducts().then((value) => products = value);    
+    await _getProducts().then((value) => products = value);
 
     print(products);
 
     dio.options.headers['Authorization'] = 'Bearer $token';
     try {
       print("Masuk TRY");
-      final response = await dio.get(endpoints.getCart);      
+      final response = await dio.get(endpoints.getCart);
       final cartResponse = response.data['data'] as Map<String, dynamic>;
       Cart cart = Cart(
         id: cartResponse['id'],
@@ -57,7 +56,6 @@ class CartRepositoryImpl implements CartRepository {
       rethrow;
     }
   }
-
 }
 
 class AddCartRepositoryImpl implements AddCartRepository {
@@ -70,11 +68,11 @@ class AddCartRepositoryImpl implements AddCartRepository {
   });
 
   Future<String?> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();       
+    final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
     return token;
   }
-  
+
   @override
   Future<int> addCart(int productId) async {
     String? token;
@@ -86,11 +84,9 @@ class AddCartRepositoryImpl implements AddCartRepository {
     dio.options.headers['Authorization'] = 'Bearer $token';
 
     try {
-       print("TRY JALAN");
-      final response = await dio.post(endpoints.addToCart,
-      data: {
-        "productId": productId
-      });
+      print("TRY JALAN");
+      final response =
+          await dio.post(endpoints.addToCart, data: {"productId": productId});
       print(response);
       final addToCartResponse = response.data as Map<String, dynamic>;
       int cartItemId = addToCartResponse['data']['id'];
@@ -112,13 +108,13 @@ class DeleteCartRepositoryImpl implements DeleteCartRepository {
   });
 
   Future<String?> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();       
+    final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
     return token;
   }
-  
+
   @override
-  Future<DeleteResponse> deleteCart(int cartItemId) async {
+  Future<GeneralResponse> deleteCart(int cartItemId) async {
     String? token;
     String? id;
 
@@ -132,13 +128,61 @@ class DeleteCartRepositoryImpl implements DeleteCartRepository {
 
     try {
       print("TRY JALAN");
-      final response = await dio.delete(endpoints.deleteCartItem+"?id="+id);
+      final response = await dio.delete(endpoints.deleteCartItem + "?id=" + id);
       print(response);
       final deleteFromCartResponse = response.data as Map<String, dynamic>;
-      DeleteResponse deleteResponse = DeleteResponse(id: deleteFromCartResponse['data']['id'], success: deleteFromCartResponse['success']);
-      print(deleteResponse.success);
+      GeneralResponse deleteResponse = GeneralResponse(
+          id: deleteFromCartResponse['data']['id'],
+          success: deleteFromCartResponse['success'],
+          message: deleteFromCartResponse['message']);
+      print(deleteResponse.message);
       print("SUKSES DELETE FROM CART");
       return deleteResponse;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+
+class UpdateCartRepositoryImpl implements UpdateCartRepository {
+  final Endpoints endpoints;
+  final Dio dio;
+
+  UpdateCartRepositoryImpl({
+    required this.endpoints,
+    required this.dio,
+  });
+
+  Future<String?> _getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("token");
+    return token;
+  }
+
+  @override
+  Future<GeneralResponse> updateCart(int cartItemId, int quantity) async {
+    
+    String? token;
+
+    await _getToken().then((value) {
+      token = value;
+    });
+
+    dio.options.headers['Authorization'] = 'Bearer $token';
+
+    try {
+      print("TRY JALAN");
+      final response = await dio
+          .post(endpoints.editCart, data: {"id": cartItemId, "quantity": quantity});
+      print(response);
+      final updateCartResponse = response.data as Map<String, dynamic>;
+      GeneralResponse updateCart = GeneralResponse(
+        id: updateCartResponse['data']['id'],
+        success: updateCartResponse['success'],
+        message: updateCartResponse['message'],
+      );
+      print("SUKSES UPDATE CART");
+      return updateCart;
     } catch (e) {
       rethrow;
     }

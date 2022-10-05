@@ -1,24 +1,28 @@
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
-import 'package:flutter/material.dart';
-
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import './cart_presenter.dart';
 import '../../../../domain/entitites/cart.dart';
+import '../../../../domain/entitites/general_response.dart';
 
 class CartController extends Controller {
   final CartPresenter _presenter;
 
   CartController(this._presenter);
 
-  DeleteResponse? _cartItem;
-  DeleteResponse? get cartItem => _cartItem;
+  GeneralResponse? _cartItem;
+  GeneralResponse? get cartItem => _cartItem;
+
+  GeneralResponse? _updateResponse;
+  GeneralResponse? get updateResponse => _updateResponse;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;  
 
   bool _isDeleted = false;
   bool get isDeleted => _isDeleted;
+
+  bool _isUpdated = false;
+  bool get isUpdated => _isUpdated;
 
   Cart _cart = Cart(id: 0, cartItems: []);
   Cart get cart => _cart;
@@ -52,10 +56,23 @@ class CartController extends Controller {
   Future<void> deleteCart(int cartItemId) async {    
     _presenter.deleteCart(cartItemId); 
     do {
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 1));
     } while (!_isDeleted);    
-    if(cartItem?.success == true)  {
+    if(_cartItem?.success == true)  {
       _presenter.getCart();
+      _isDeleted = false;
+      // refreshUI();
+    }    
+  }
+
+  Future<void> updateCart(int cartItemId, int quantity) async {    
+    _presenter.updateCart(cartItemId, quantity); 
+    do {
+      await Future.delayed(const Duration(milliseconds: 1));
+    } while (!_isUpdated);    
+    if(_updateResponse?.success == true)  {
+      _presenter.getCart();
+      _isUpdated = false;
       // refreshUI();
     }    
   }
@@ -63,23 +80,34 @@ class CartController extends Controller {
   void _initObserver() {
     _presenter.onErrorGetCart = (e) {};
     _presenter.onErrorDeleteFromCart = (e){};
+    _presenter.onErrorUpdateCart = (e){};
     _presenter.onFinishGetCart = () {
       _hideLoading();
     };
     _presenter.onFinishDeleteFromCart = (){
       _successDelete();
     };
+    _presenter.onFinishUpdateCart = (){
+      _successUpdate();
+    };
     _presenter.onSuccessGetCart = (Cart data) {
       _cart = data;
     };
-    _presenter.onSuccessDeleteFromCart = (DeleteResponse? data) {
+    _presenter.onSuccessDeleteFromCart = (GeneralResponse? data) {
       _cartItem = data;
       //  _successDelete();
+    };
+    _presenter.onSuccessUpdateCart = (GeneralResponse? data){
+      _updateResponse = data;
     };
   }
 
   void _successDelete() {
-    _isDeleted = true;
+    _isDeleted = true;    
+  }
+
+  void _successUpdate() {
+    _isUpdated = true;
     // refreshUI();
   }
 

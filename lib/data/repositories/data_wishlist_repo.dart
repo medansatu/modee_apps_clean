@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:final_project_clean/domain/entitites/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../domain/entitites/delete_response.dart';
+import '../../domain/entitites/general_response.dart';
 import '../misc/endpoints.dart';
 import '../../domain/repositories/wishlist_repo.dart';
 import '../../domain/entitites/wishlist.dart';
@@ -115,7 +115,7 @@ class DeleteWishlistRepositoryImpl implements DeleteWishlistRepository {
   }
   
   @override
-  Future<DeleteResponse> deleteWishlist(int wishlistItemId) async {
+  Future<GeneralResponse> deleteWishlist(int wishlistItemId) async {
     String? token;
     String? id;
 
@@ -132,8 +132,8 @@ class DeleteWishlistRepositoryImpl implements DeleteWishlistRepository {
       final response = await dio.delete(endpoints.deleteWishlist+"?id="+id);
       print(response);
       final deleteFromWishlistResponse = response.data as Map<String, dynamic>;
-      DeleteResponse deleteResponse = DeleteResponse(id: deleteFromWishlistResponse['data']['id'], success: deleteFromWishlistResponse['success']);
-      print(deleteResponse.success);
+      GeneralResponse deleteResponse = GeneralResponse(id: deleteFromWishlistResponse['data']['id'], success: deleteFromWishlistResponse['success'], message: deleteFromWishlistResponse['message']);
+      print(deleteResponse.message);
       print("SUKSES DELETE FROM WISHLIST");
       return deleteResponse;
     } catch (e) {

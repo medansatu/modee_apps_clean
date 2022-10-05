@@ -1,9 +1,10 @@
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
+import 'package:final_project_clean/domain/usecases/cases/update_cart_use_case.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import '../../../../domain/entitites/cart.dart';
 import '../../../../domain/usecases/cases/get_cart_use_case.dart';
 import '../../../../domain/usecases/cases/delete_from_cart_use_case.dart';
+import '../../../../domain/entitites/general_response.dart';
 
 
 class CartPresenter extends Presenter {
@@ -11,17 +12,24 @@ class CartPresenter extends Presenter {
   late Function(dynamic error) onErrorGetCart;
   late Function() onFinishGetCart;
 
-  late Function(DeleteResponse?) onSuccessDeleteFromCart;
+  late Function(GeneralResponse?) onSuccessDeleteFromCart;
   late Function(dynamic error) onErrorDeleteFromCart;
-  late Function() onFinishDeleteFromCart;  
+  late Function() onFinishDeleteFromCart; 
+
+  late Function(GeneralResponse?) onSuccessUpdateCart;
+  late Function(dynamic error) onErrorUpdateCart;
+  late Function() onFinishUpdateCart;  
 
   final GetCart getCartUseCase;
   
   final DeleteCartUseCase deleteFromCartUseCase;
 
+  final UpdateCartUseCase updateCartUseCase;
+
   CartPresenter({
     required this.getCartUseCase,
     required this.deleteFromCartUseCase,
+    required this.updateCartUseCase,
   });
 
   void getCart() {
@@ -31,11 +39,16 @@ class CartPresenter extends Presenter {
   void deleteCart(int cartItemId) {
     deleteFromCartUseCase.execute(_DeleteFromCartObserver(this), DeleteCartParams(cartItemId));
   }
+
+  void updateCart(int cartItemId, int quantity) {
+    updateCartUseCase.execute(_UpdateCartObserver(this), UpdateCartParams(cartItemId, quantity));
+  }
   
   @override
   void dispose() {
     getCartUseCase.dispose();
     deleteFromCartUseCase.dispose();
+    updateCartUseCase.dispose();
   }
 }
 
@@ -57,7 +70,7 @@ class _GetCartObserver extends Observer<Cart> {
   }
 }
 
-class _DeleteFromCartObserver extends Observer<DeleteResponse> {
+class _DeleteFromCartObserver extends Observer<GeneralResponse> {
   final CartPresenter presenter;
 
   _DeleteFromCartObserver(this.presenter);
@@ -69,8 +82,26 @@ class _DeleteFromCartObserver extends Observer<DeleteResponse> {
   void onError(e) => presenter.onErrorDeleteFromCart(e);
 
   @override
-  void onNext(DeleteResponse? response) {
+  void onNext(GeneralResponse? response) {
     final cartItemId = response;
     presenter.onSuccessDeleteFromCart(cartItemId);
+  }
+}
+
+class _UpdateCartObserver extends Observer<GeneralResponse> {
+  final CartPresenter presenter;
+
+  _UpdateCartObserver(this.presenter);
+
+  @override
+  void onComplete() => presenter.onFinishUpdateCart();
+
+  @override
+  void onError(e) => presenter.onErrorUpdateCart(e);
+
+  @override
+  void onNext(GeneralResponse? response) {
+    final updateResponse = response;
+    presenter.onSuccessUpdateCart(updateResponse);
   }
 }

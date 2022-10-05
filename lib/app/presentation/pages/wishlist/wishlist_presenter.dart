@@ -1,6 +1,6 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
-import '../../../../domain/entitites/delete_response.dart';
+import '../../../../domain/entitites/general_response.dart';
 import '../../../../domain/entitites/wishlist.dart';
 import '../../../../domain/usecases/cases/delete_from_cart_use_case.dart';
 import '../../../../domain/usecases/cases/delete_from_wishlist_use_case.dart';
@@ -11,7 +11,7 @@ class WishlistPresenter extends Presenter {
   late Function(dynamic error) onErrorGetWishlist;
   late Function() onFinishGetWishlist;
 
-  late Function(DeleteResponse?) onSuccessDeleteFromWishlist;
+  late Function(GeneralResponse?) onSuccessDeleteFromWishlist;
   late Function(dynamic error) onErrorDeleteFromWishlist;
   late Function() onFinishDeleteFromWishlist;  
 
@@ -57,7 +57,7 @@ class _GetWishlistObserver extends Observer<Wishlist> {
   }
 }
 
-class _DeleteFromWishlistObserver extends Observer<DeleteResponse> {
+class _DeleteFromWishlistObserver extends Observer<GeneralResponse> {
   final WishlistPresenter presenter;
 
   _DeleteFromWishlistObserver(this.presenter);
@@ -69,7 +69,7 @@ class _DeleteFromWishlistObserver extends Observer<DeleteResponse> {
   void onError(e) => presenter.onErrorDeleteFromWishlist(e);
 
   @override
-  void onNext(DeleteResponse? response) {
+  void onNext(GeneralResponse? response) {
     final wishlistItem = response;
     presenter.onSuccessDeleteFromWishlist(wishlistItem);
   }

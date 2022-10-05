@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:final_project_clean/domain/entitites/delete_response.dart';
+import 'package:final_project_clean/domain/entitites/general_response.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import '../../repositories/wishlist_repo.dart';
 
-class DeleteWishlistUseCase extends UseCase<DeleteResponse, DeleteWishlistParams> {
+class DeleteWishlistUseCase extends UseCase<GeneralResponse, DeleteWishlistParams> {
   final DeleteWishlistRepository repository;
   DeleteWishlistUseCase(this.repository);
   
   @override
-  Future<Stream<DeleteResponse?>> buildUseCaseStream(DeleteWishlistParams? params) async {
-    final streamController = StreamController<DeleteResponse>();
+  Future<Stream<GeneralResponse?>> buildUseCaseStream(DeleteWishlistParams? params) async {
+    final streamController = StreamController<GeneralResponse>();
     try {
       final wishlistItemId = await repository.deleteWishlist(params!.wishlistItemId);
       streamController.add(wishlistItemId);

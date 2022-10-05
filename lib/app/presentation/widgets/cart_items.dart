@@ -8,6 +8,9 @@ class CartItem extends StatelessWidget {
   final String productName, imageUrl;
   final int price, quantity, productId;
   final VoidCallback action;
+  final VoidCallback addQty;
+  final VoidCallback deductQty;
+
   const CartItem({
     required this.id,
     required this.productName,
@@ -16,6 +19,8 @@ class CartItem extends StatelessWidget {
     required this.productId,
     required this.imageUrl,
     required this.action,
+    required this.addQty,
+    required this.deductQty,
   });
 
   @override
@@ -65,15 +70,22 @@ class CartItem extends StatelessWidget {
                 children: [
                   SizedBox(width: MediaQuery.of(context).size.width * 0.57,
                   height: MediaQuery.of(context).size.height * 0.05,
-                    child: Text(productName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16), maxLines: 2, overflow: TextOverflow.clip,)),
+                    child: Text(productName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16), maxLines: 2, overflow: TextOverflow.clip,)),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05,),              
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.57,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Quantity"),
-                        Text(quantity.toString()),
+                        const Text("Quantity"),
+                        const SizedBox(width: 10,),
+                        Row(
+                          children: [
+                            IconButton(constraints: BoxConstraints(maxHeight: 40, maxWidth: 40), onPressed: deductQty, icon: const Icon(Icons.remove, size: 20,)),
+                            Text(quantity.toString()),
+                            IconButton(constraints: BoxConstraints(maxHeight: 40, maxWidth: 25), onPressed: addQty, icon: const Icon(Icons.add, size: 20,)),
+                          ],
+                        ),
                       ],
                     ),
                   ),   
