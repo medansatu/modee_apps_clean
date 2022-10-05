@@ -86,7 +86,7 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                                   productName:
                                       selectedProduct.productName.toString(),
                                   price: int.parse(
-                                      selectedProduct.price.toString()),
+                                      cartItem['price'].toString()),
                                   quantity: int.parse(
                                       cartItem['quantity'].toString()),
                                   productId: selectedProduct.id,

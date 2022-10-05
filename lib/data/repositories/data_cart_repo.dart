@@ -47,7 +47,7 @@ class CartRepositoryImpl implements CartRepository {
       final cartResponse = response.data['data'] as Map<String, dynamic>;
       Cart cart = Cart(
         id: cartResponse['id'],
-        cartItems: cartResponse['cartItems'],
+        cartItems: cartResponse['cartItemList'],
         products: Product.decode(products.toString()),
       );
       print("Selesai Get Cart");
