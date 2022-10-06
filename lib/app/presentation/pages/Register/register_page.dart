@@ -29,7 +29,6 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
   @override
   Widget get view => Scaffold(
         key: globalKey,
-        // body: SingleChildScrollView(
         body: ControlledWidgetBuilder<RegisterController>(
           builder: (BuildContext context, RegisterController controller) =>
               Stack(
@@ -97,8 +96,6 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                             controller.passwordController.text,
                           );
                           }
-                          print("ERROR");                      
-                          // Navigator.of(context).pushReplacementNamed(routeName);
                     },
                    ),                    
                   ],

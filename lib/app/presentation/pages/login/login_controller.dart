@@ -4,6 +4,7 @@ import 'package:final_project_clean/domain/entitites/error_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './login_page.dart';
@@ -43,11 +44,16 @@ class LoginController extends Controller {
   }
 
   Future<void> loginNow(String username, String password) async {
+    final context = getContext();
     _getUser(username, password);
     do {
       await Future.delayed(const Duration(milliseconds: 1));
     } while (_isLoading);
     if (user?.success == true) {
+      Fluttertoast.showToast(msg: "Login Success!", toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Theme.of(context).accentColor,
+        );
       _navigateToTabs();
     } else {
       final context = getContext();

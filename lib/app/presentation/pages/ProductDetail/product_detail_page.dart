@@ -4,7 +4,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:injector/injector.dart';
 
 import '../../../../domain/entitites/product.dart';
-import '../../widgets/procut_detail.dart';
+import '../../widgets/product_detail.dart';
 import './product_detail_controller.dart';
 import '../Tabs/tabs_page.dart';
 
@@ -59,6 +59,7 @@ class _ProductDetailViewState
     }
 
     return Scaffold(
+      key: globalKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).accentColor),

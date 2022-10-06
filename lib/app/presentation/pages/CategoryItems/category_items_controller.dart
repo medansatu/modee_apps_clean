@@ -8,7 +8,6 @@ import '../../pages/ProductDetail/product_detail_page.dart';
 class CategoryItemsController extends Controller {
   @override
   void initListeners() {
-    // TODO: implement initListeners
   }
 
   void navigateToProductDetail(Product arguments) {

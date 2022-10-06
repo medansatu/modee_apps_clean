@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../domain/entitites/error_response.dart';
 import '../../widgets/pop_up_message.dart';
@@ -58,11 +59,15 @@ class RegisterController extends Controller {
 
   Future<void> registerNow(String name, String username, String email,
       String phoneNumber, String address, String password) async {
+        final context = getContext();
     _registerUser(name, username, email, phoneNumber, address, password);
     do {
       await Future.delayed(const Duration(milliseconds: 1));
     } while (_isLoading);
     if (register?.id != 0) {
+      Fluttertoast.showToast(msg: "Register Sucess, Please Login!", toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Theme.of(context).accentColor,);
       navigateToLogin();
     } else {
       final context = getContext();

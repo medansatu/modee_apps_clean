@@ -42,10 +42,9 @@ class _HomeViewState extends ViewState<HomePage, HomeController> {
   @override
   Widget get view => ControlledWidgetBuilder<HomeController>(
           builder: (BuildContext _, HomeController controller) {
-            final List<Product> products = controller.products;            
-            // var productCopy = [...productsdata];
+            final List<Product> products = controller.products;       
+            
             print("PRODUCT DATA: $products");
-            // print("PRODUCT COPY: $productCopy");
             return Scaffold(
                   key: globalKey,
                   appBar: AppBar(

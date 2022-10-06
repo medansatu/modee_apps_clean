@@ -23,7 +23,6 @@ class CategoryItem extends StatelessWidget {
           InkWell(
             onTap: () {
               route();
-              // Navigator.of(context).pushNamed(CategoryItemsScreen.routeName, arguments: ({"id" : id, "name": categoryName}));
             },
             splashColor: Theme.of(context).primaryColor.withOpacity(0.3),
             borderRadius: BorderRadius.circular(15),

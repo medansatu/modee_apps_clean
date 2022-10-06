@@ -29,7 +29,6 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
   @override
   Widget get view => Scaffold(
         key: globalKey,
-        // body: SingleChildScrollView(
         body: ControlledWidgetBuilder<LoginController>(
           builder: (BuildContext context, LoginController controller) => Stack(
             children: [
@@ -61,8 +60,7 @@ class _LoginViewState extends ViewState<LoginPage, LoginController> {
                   ),
                   LoginRegisterButton(
                     text: "Login",
-                    action: () => controller.loginNow(controller.usernameController.text, controller.passwordController.text),
-                    // route: () => controller.navigateToTabs(),
+                    action: () => controller.loginNow(controller.usernameController.text, controller.passwordController.text),                    
                   ),
                 ],
               ),

@@ -36,18 +36,13 @@ class _CategoryViewState extends ViewState<CategoryItemsPage, CategoryItemsContr
       key: globalKey,
       appBar: AppBar(
         iconTheme: IconThemeData(color:Theme.of(context).accentColor),
-        title: Text(category.category.toString(), style: TextStyle(color: Theme.of(context).accentColor),),
-        // leading: Padding(
-        //   padding: EdgeInsets.all(10),
-        //   child: SvgPicture.asset("assets/images/logoonly.svg"),
-        // ),
+        title: Text(category.category.toString(), style: TextStyle(color: Theme.of(context).accentColor),),        
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
           IconButton(
             onPressed: () {},
             icon: Icon(
               Icons.search_outlined,
-              // color: Theme.of(context).accentColor,
               size: 30,
             ),
           )

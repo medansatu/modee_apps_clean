@@ -23,7 +23,6 @@ class TabsPage extends View{
 
 class _TabsViewState extends ViewState<TabsPage, TabsController> {
   _TabsViewState(super.controller);
-  // List<Map<String, Object>> _pages = [];  
 
   
   int _selectedPageIndex = 0;
@@ -62,7 +61,6 @@ class _TabsViewState extends ViewState<TabsPage, TabsController> {
 
   
   @override
-  // TODO: implement view
   Widget get view => Scaffold(
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(

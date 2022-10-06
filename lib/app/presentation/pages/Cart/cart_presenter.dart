@@ -141,5 +141,4 @@ class _GetCartTotalObserver extends Observer<int> {
   }
   
   
-  
 }

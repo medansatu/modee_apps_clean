@@ -13,7 +13,6 @@ import '../../../../domain/entitites/cart.dart';
 import '../../widgets/cart_items.dart';
 
 class CartPage extends View {
-  // final List<Product> products;
 
   CartPage({Key? key}) : super(key: key);
 
@@ -46,19 +45,8 @@ class _CartViewState extends ViewState<CartPage, CartController> {
         ),
         body: ControlledWidgetBuilder<CartController>(
             builder: (BuildContext _, CartController controller) {
-          final products = controller.cart.products;
-          int itemTotal = 0;
-          int grandTotal = 0;
-
-          int sum() {
-            grandTotal += itemTotal;
-            return grandTotal;
-          }
-          // for (var i = 0; i < controller.cart.cartItems.length; i++) {
-          //   grandTotal += itemTotal;
-          // }
-          // final products = Product.decode(encodedProducts.toString());
-
+          final products = controller.cart.products;          
+          
           return controller.isLoading
               ? Center(
                     child: CircularProgressIndicator(
@@ -90,11 +78,7 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                             itemBuilder: ((context, index) {
                               final cartItem = controller.cart.cartItems[index];
                               final selectedProduct = products!.firstWhere(
-                                  (product) => product.id == controller.cart.cartItems[index]['productId']);
-                              // controller.itemTotal = int.parse(cartItem['price'].toString()) * int.parse(cartItem['quantity'].toString());
-                              // print(itemTotal);
-                              // controller.sumTotal();
-                              // print(controller.grandTotal);                              
+                                  (product) => product.id == controller.cart.cartItems[index]['productId']);                                                            
                               return CartItem(
                                   id: cartItem['id'],
                                   productName:

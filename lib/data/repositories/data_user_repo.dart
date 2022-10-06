@@ -12,12 +12,7 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({
     required this.endpoints,
     required this.dio,
-  }); 
-
-  // Future<void> _setToken() async {
-  //   final prefs = await SharedPreferences.getInstance();  
-  //   prefs.setString("token", "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyIiwibmFtZSI6InN0cmluZyIsIm5iZiI6MTY2NDYwNTQ2MCwiZXhwIjoxNjY0NjkxODYwLCJpYXQiOjE2NjQ2MDU0NjB9.80FLRV4m_UC-zybMqoQPNPG_V_WzQIwkzAE3Qm6OQktdi3Buyc2OrfCOsXXsoHU15sV4yKICicNHTk2YcjYZzQ");      
-  // }
+  });   
 
   @override
   Future<User> login(String username, String password) async {
@@ -31,9 +26,8 @@ class UserRepositoryImpl implements UserRepository {
         "password": password,
       });
       print(response);
-      final userResponse = response.data as Map<String, dynamic>;
+      final userResponse = response.data as Map<String, dynamic>;      
       
-      // print(userResponse["data"]);
       User user = User(
         id: userResponse["data"]["id"],
         name: userResponse["data"]["name"],

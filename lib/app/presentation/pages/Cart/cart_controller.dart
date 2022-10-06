@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import './cart_presenter.dart';
 import '../../../../domain/entitites/cart.dart';
@@ -27,21 +29,8 @@ class CartController extends Controller {
   Cart _cart = Cart(id: 0, cartItems: []);
   Cart get cart => _cart;
 
-  // int itemTotal = 0;
   int _grandTotal = 0;
-  int get grandTotal => _grandTotal;
-
-  // int sumTotal() {       
-  //     _grandTotal += itemTotal;
-  //     // refreshUI();   
-  //     return _grandTotal;
-             
-  // }
-
-  // int total() {
-  //   refreshUI();
-  //   return _grandTotal;
-  // }
+  int get grandTotal => _grandTotal;  
   
   @override
   void initListeners() {
@@ -68,7 +57,7 @@ class CartController extends Controller {
       _presenter.getCart();
       _isDeleted = false;
       _getTotal();
-      refreshUI();
+      // refreshUI();
     }    
   }
 
@@ -105,7 +94,6 @@ class CartController extends Controller {
     };
     _presenter.onSuccessDeleteFromCart = (GeneralResponse? data) {
       _cartItem = data;
-      //  _successDelete();
     };
     _presenter.onSuccessUpdateCart = (GeneralResponse? data){
       _updateResponse = data;
