@@ -57,7 +57,7 @@ class PopUpMessage extends StatelessWidget {
                                   ),
                                   titlePadding: const EdgeInsets.all(0),
                                   content: 
-                                  Text(message, style: TextStyle(color: Colors.black),),
+                                  Text(message, style: TextStyle(color: Colors.black), textAlign: TextAlign.center,),
                                   actions: [
                                     Container(
                                         child: OutlinedButton(

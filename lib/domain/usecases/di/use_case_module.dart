@@ -12,6 +12,7 @@ import '../cases/delete_from_cart_use_case.dart';
 import '../cases/delete_from_wishlist_use_case.dart';
 import '../cases/get_profile_use_case.dart';
 import '../cases/update_cart_use_case.dart';
+import '../cases/get_total_cart_use_case.dart';
 
 class UseCaseModule {
   static registerClasses() {
@@ -28,5 +29,6 @@ class UseCaseModule {
     injector.registerDependency<DeleteWishlistUseCase>(() => DeleteWishlistUseCase(injector.get()));
     injector.registerDependency<GetProfileUseCase>(() => (GetProfileUseCase(injector.get())));
     injector.registerDependency<UpdateCartUseCase>(() => UpdateCartUseCase(injector.get()));
+    injector.registerDependency<GetCartTotalUseCase>(() => GetCartTotalUseCase(injector.get()));
   }
 }

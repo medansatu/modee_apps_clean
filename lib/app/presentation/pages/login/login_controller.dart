@@ -55,7 +55,7 @@ class LoginController extends Controller {
           context: context,
           builder: (context) => PopUpMessage(
               text: "Login Failed",
-              buttonText: "Try Again",
+              buttonText: "OK",
               message: errorResponse!.message));
     }
   }

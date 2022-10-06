@@ -42,7 +42,7 @@ class AppModule {
       () => CartController(injector.get()),
     );
     injector.registerDependency<CartPresenter>(
-      () => CartPresenter(getCartUseCase: injector.get(), deleteFromCartUseCase: injector.get(),updateCartUseCase: injector.get()),
+      () => CartPresenter(getCartUseCase: injector.get(), deleteFromCartUseCase: injector.get(),updateCartUseCase: injector.get(),getCartTotalUseCase: injector.get()),
     );
     injector.registerDependency<WishlistController>(
       () => WishlistController(injector.get()),

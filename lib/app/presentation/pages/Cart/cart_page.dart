@@ -7,6 +7,7 @@ import 'package:injector/injector.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../domain/entitites/product.dart';
+import '../../../utility.dart';
 import './cart_controller.dart';
 import '../../../../domain/entitites/cart.dart';
 import '../../widgets/cart_items.dart';
@@ -90,10 +91,10 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                               final cartItem = controller.cart.cartItems[index];
                               final selectedProduct = products!.firstWhere(
                                   (product) => product.id == controller.cart.cartItems[index]['productId']);
-                              controller.itemTotal = int.parse(cartItem['price'].toString()) * int.parse(cartItem['quantity'].toString());
-                              print(itemTotal);
-                              controller.sumTotal();
-                              print(controller.grandTotal);                              
+                              // controller.itemTotal = int.parse(cartItem['price'].toString()) * int.parse(cartItem['quantity'].toString());
+                              // print(itemTotal);
+                              // controller.sumTotal();
+                              // print(controller.grandTotal);                              
                               return CartItem(
                                   id: cartItem['id'],
                                   productName:
@@ -110,11 +111,24 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                                       deductQty: () => controller.updateCart(cartItem['id'], ((cartItem['quantity'] as int) - 1)),);
                             })),
                       ),
-                      Container(                        
-                        child: Row(children: [
-                          Text("Total"),
-                          Text(controller.grandTotal.toString())                          
-                        ]),
+                      Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.075, 
+                        color: Theme.of(context).accentColor,                       
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(children: [                            
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Total"),
+                                Spacer(),
+                                Text(CurrencyFormatter.convertToIdr(controller.grandTotal), style: TextStyle(fontWeight: FontWeight.bold),),
+                              ],
+                            ), 
+                            Spacer(),
+                            ElevatedButton(onPressed: (){}, child: Text("Checkout"), style: ElevatedButton.styleFrom(backgroundColor: Colors.black),),
+                          ]),
+                        ),
                       )
                     ]);
         }),

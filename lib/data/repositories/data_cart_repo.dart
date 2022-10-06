@@ -188,3 +188,39 @@ class UpdateCartRepositoryImpl implements UpdateCartRepository {
     }
   }
 }
+
+class CartTotalRepositoryImpl implements CartTotalRepository {
+  final Endpoints endpoints;
+  final Dio dio;
+
+  CartTotalRepositoryImpl({
+    required this.endpoints,
+    required this.dio,
+  });
+
+  Future<String?> _getToken() async {
+    final prefs = await SharedPreferences.getInstance();     
+    final token = prefs.getString("token");    
+    return token;
+  }
+  
+  @override
+  Future<int> totalCart() async {
+    String? token;
+    String? products;
+
+    await _getToken().then((value) {
+      token = value;
+    });
+
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    try {
+      final response = await dio.get(endpoints.grandTotal);
+      final cartTotal = response.data['data'] as int;
+      int grandTotal = cartTotal;
+      return grandTotal;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

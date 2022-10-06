@@ -48,5 +48,6 @@ class DataModule {
     injector.registerDependency<DeleteWishlistRepository>(() => DeleteWishlistRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<ProfileRepository>(() => ProfileRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
     injector.registerDependency<UpdateCartRepository>(() => UpdateCartRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
+    injector.registerDependency<CartTotalRepository>(() => CartTotalRepositoryImpl(endpoints: injector.get(), dio: injector.get()));
   }
 }

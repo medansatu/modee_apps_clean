@@ -5,6 +5,7 @@ import '../../../../domain/entitites/cart.dart';
 import '../../../../domain/usecases/cases/get_cart_use_case.dart';
 import '../../../../domain/usecases/cases/delete_from_cart_use_case.dart';
 import '../../../../domain/entitites/general_response.dart';
+import '../../../../domain/usecases/cases/get_total_cart_use_case.dart';
 
 
 class CartPresenter extends Presenter {
@@ -18,7 +19,11 @@ class CartPresenter extends Presenter {
 
   late Function(GeneralResponse?) onSuccessUpdateCart;
   late Function(dynamic error) onErrorUpdateCart;
-  late Function() onFinishUpdateCart;  
+  late Function() onFinishUpdateCart; 
+
+  late Function(int) onSuccessGetCartTotal;
+  late Function(dynamic error) onErrorGetCartTotal;
+  late Function() onFinishGetCartTotal;  
 
   final GetCart getCartUseCase;
   
@@ -26,10 +31,13 @@ class CartPresenter extends Presenter {
 
   final UpdateCartUseCase updateCartUseCase;
 
+  final GetCartTotalUseCase getCartTotalUseCase;
+
   CartPresenter({
     required this.getCartUseCase,
     required this.deleteFromCartUseCase,
     required this.updateCartUseCase,
+    required this.getCartTotalUseCase,
   });
 
   void getCart() {
@@ -43,12 +51,17 @@ class CartPresenter extends Presenter {
   void updateCart(int cartItemId, int quantity) {
     updateCartUseCase.execute(_UpdateCartObserver(this), UpdateCartParams(cartItemId, quantity));
   }
+
+  void getCartTotal() {
+    getCartTotalUseCase.execute(_GetCartTotalObserver(this));
+  }
   
   @override
   void dispose() {
     getCartUseCase.dispose();
     deleteFromCartUseCase.dispose();
     updateCartUseCase.dispose();
+    getCartTotalUseCase.dispose();
   }
 }
 
@@ -104,4 +117,29 @@ class _UpdateCartObserver extends Observer<GeneralResponse> {
     final updateResponse = response;
     presenter.onSuccessUpdateCart(updateResponse);
   }
+}
+
+class _GetCartTotalObserver extends Observer<int> {
+  final CartPresenter presenter;
+
+  _GetCartTotalObserver(this.presenter);
+  
+  @override
+  void onComplete() {
+    presenter.onFinishGetCartTotal();
+  }
+  
+  @override
+  void onError(e) {
+    presenter.onErrorGetCartTotal(e);
+  }
+  
+  @override
+  void onNext(int? response) {
+    final cartTotal = response ?? 0;
+    presenter.onSuccessGetCartTotal(cartTotal);
+  }
+  
+  
+  
 }

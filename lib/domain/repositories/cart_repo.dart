@@ -17,3 +17,7 @@ abstract class DeleteCartRepository{
 abstract class UpdateCartRepository{
   Future<GeneralResponse> updateCart(int cartItemId, int quantity);
 }
+
+abstract class CartTotalRepository{
+  Future<int> totalCart();
+}

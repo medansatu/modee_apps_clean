@@ -27,26 +27,31 @@ class CartController extends Controller {
   Cart _cart = Cart(id: 0, cartItems: []);
   Cart get cart => _cart;
 
-  int itemTotal = 0;
+  // int itemTotal = 0;
   int _grandTotal = 0;
   int get grandTotal => _grandTotal;
 
-  int sumTotal() {       
-      _grandTotal += itemTotal;
-      // refreshUI();   
-      return _grandTotal;
+  // int sumTotal() {       
+  //     _grandTotal += itemTotal;
+  //     // refreshUI();   
+  //     return _grandTotal;
              
-  }
+  // }
 
-  int total() {
-    refreshUI();
-    return _grandTotal;
-  }
+  // int total() {
+  //   refreshUI();
+  //   return _grandTotal;
+  // }
   
   @override
   void initListeners() {
     _initObserver();
     _getCart();
+    _getTotal();
+  }
+
+  void _getTotal() {
+    _presenter.getCartTotal();
   }
 
   void _getCart() {
@@ -62,7 +67,8 @@ class CartController extends Controller {
     if(_cartItem?.success == true)  {
       _presenter.getCart();
       _isDeleted = false;
-      // refreshUI();
+      _getTotal();
+      refreshUI();
     }    
   }
 
@@ -74,7 +80,8 @@ class CartController extends Controller {
     if(_updateResponse?.success == true)  {
       _presenter.getCart();
       _isUpdated = false;
-      // refreshUI();
+      _getTotal();
+      refreshUI();
     }    
   }
 
@@ -82,6 +89,7 @@ class CartController extends Controller {
     _presenter.onErrorGetCart = (e) {};
     _presenter.onErrorDeleteFromCart = (e){};
     _presenter.onErrorUpdateCart = (e){};
+    _presenter.onErrorGetCartTotal = (e) {};
     _presenter.onFinishGetCart = () {
       _hideLoading();
     };
@@ -91,6 +99,7 @@ class CartController extends Controller {
     _presenter.onFinishUpdateCart = (){
       _successUpdate();
     };
+    _presenter.onFinishGetCartTotal = (){};
     _presenter.onSuccessGetCart = (Cart data) {
       _cart = data;
     };
@@ -101,6 +110,9 @@ class CartController extends Controller {
     _presenter.onSuccessUpdateCart = (GeneralResponse? data){
       _updateResponse = data;
     };
+    _presenter.onSuccessGetCartTotal = (int data) {
+      _grandTotal = data;
+    };
   }
 
   void _successDelete() {
@@ -109,7 +121,6 @@ class CartController extends Controller {
 
   void _successUpdate() {
     _isUpdated = true;
-    // refreshUI();
   }
 
   void _showLoading() {

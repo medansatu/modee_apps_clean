@@ -11,5 +11,6 @@ class Endpoints {
   String get deleteWishlist => 'Wishlist/DeleteWishlistItem';
   String get getAllProduct => 'Product/GetAllProduct';
   String get getAllCategory => 'Category/GetAllCategory';
+  String get grandTotal => 'Cart/GrandTotal';
 }
 
