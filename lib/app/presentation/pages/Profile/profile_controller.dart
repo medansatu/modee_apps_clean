@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../login/login_page.dart';
 import './profile_presenter.dart';
 import '../../../../domain/entitites/profile.dart';
 
@@ -23,6 +26,13 @@ class ProfileController extends Controller {
   void _getProfile() {
     _showLoading();
     _presenter.getProfile();
+  }
+
+  Future<void> navigateToLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    final context = getContext();
+    Navigator.pushReplacementNamed(context, LoginPage.routeName);
   }
 
   void _initObserver() {

@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/product_item.dart';
+import '../ProductDetail/product_detail_page.dart';
 import './home_controller.dart';
 import '../../../../domain/entitites/product.dart';
 import '../../widgets/new_arrival_item.dart';
@@ -41,7 +42,7 @@ class _HomeViewState extends ViewState<HomePage, HomeController> {
   @override
   Widget get view => ControlledWidgetBuilder<HomeController>(
           builder: (BuildContext _, HomeController controller) {
-            final List<Product> products = controller.products;
+            final List<Product> products = controller.products;            
             // var productCopy = [...productsdata];
             print("PRODUCT DATA: $products");
             // print("PRODUCT COPY: $productCopy");
@@ -57,7 +58,7 @@ class _HomeViewState extends ViewState<HomePage, HomeController> {
           actions: [
             IconButton(
               onPressed: () {
-                final results = showSearch(context: context, delegate: ProductSearch(products));
+                showSearch(context: context, delegate: ProductSearch(products));
               },
               icon: Icon(
                 Icons.search_outlined,
@@ -131,13 +132,7 @@ class _HomeViewState extends ViewState<HomePage, HomeController> {
 
 class ProductSearch extends SearchDelegate<List<Product>?> {
   final List<Product> products;
-  
-  final recentSearch = [
-    "Flannel",
-    "Dress",
-  ];
-
-   
+    
 
   ProductSearch(this.products);
 
@@ -166,7 +161,23 @@ class ProductSearch extends SearchDelegate<List<Product>?> {
   
   @override
   Widget buildResults(BuildContext context) {
-    return GridView.builder(
+    return foundProduct!.isEmpty ? Center(
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.search_off,
+                          size: MediaQuery.of(context).size.height * 0.2,
+                        ),
+                        const Text(
+                          "Product not found",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )) : GridView.builder(
           itemCount: foundProduct!.length,
           itemBuilder: ((context, index) => ProductItem(
                 id: foundProduct![index].id,
@@ -174,7 +185,7 @@ class ProductSearch extends SearchDelegate<List<Product>?> {
                 price: foundProduct![index].price,
                 imageUrl: foundProduct![index].imageUrl,
                 productName: foundProduct![index].productName,
-                route: () {},
+                route: () {Navigator.pushNamed(context, ProductDetailPage.routeName, arguments: foundProduct![index]);},
               )),
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: MediaQuery.of(context).size.height * 0.33),            

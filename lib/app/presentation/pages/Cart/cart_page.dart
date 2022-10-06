@@ -26,6 +26,8 @@ class CartPage extends View {
 class _CartViewState extends ViewState<CartPage, CartController> {
   _CartViewState(super.controller);  
 
+  
+
   @override
   Widget get view => Scaffold(
         appBar: AppBar(
@@ -44,6 +46,16 @@ class _CartViewState extends ViewState<CartPage, CartController> {
         body: ControlledWidgetBuilder<CartController>(
             builder: (BuildContext _, CartController controller) {
           final products = controller.cart.products;
+          int itemTotal = 0;
+          int grandTotal = 0;
+
+          int sum() {
+            grandTotal += itemTotal;
+            return grandTotal;
+          }
+          // for (var i = 0; i < controller.cart.cartItems.length; i++) {
+          //   grandTotal += itemTotal;
+          // }
           // final products = Product.decode(encodedProducts.toString());
 
           return controller.isLoading
@@ -78,8 +90,9 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                               final cartItem = controller.cart.cartItems[index];
                               final selectedProduct = products!.firstWhere(
                                   (product) => product.id == controller.cart.cartItems[index]['productId']);
-                              // controller.itemTotal = int.parse(selectedProduct.price.toString()) * int.parse(cartItem['quantity'].toString());
-                              // controller.sumTotal();
+                              controller.itemTotal = int.parse(cartItem['price'].toString()) * int.parse(cartItem['quantity'].toString());
+                              print(itemTotal);
+                              controller.sumTotal();
                               print(controller.grandTotal);                              
                               return CartItem(
                                   id: cartItem['id'],
@@ -97,12 +110,12 @@ class _CartViewState extends ViewState<CartPage, CartController> {
                                       deductQty: () => controller.updateCart(cartItem['id'], ((cartItem['quantity'] as int) - 1)),);
                             })),
                       ),
-                      // Container(
-                      //   child: Row(children: [
-                      //     Text("Total"),
-                      //     Text(controller.total().toString())                          
-                      //   ]),
-                      // )
+                      Container(                        
+                        child: Row(children: [
+                          Text("Total"),
+                          Text(controller.grandTotal.toString())                          
+                        ]),
+                      )
                     ]);
         }),
       );

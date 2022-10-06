@@ -52,6 +52,7 @@ class _ProfileViewState extends ViewState<ProfilePage, ProfileController> {
   
   @override
   Widget get view => Scaffold(
+    key: globalKey,
     body: ControlledWidgetBuilder<ProfileController>(builder: (BuildContext _context, ProfileController controller) => 
     controller.isLoading
     ? Center(
@@ -98,7 +99,7 @@ class _ProfileViewState extends ViewState<ProfilePage, ProfileController> {
             ],
           ),
         ),
-        LoginRegisterButton(text: "Log Out", action: (){}),
+        LoginRegisterButton(text: "Log Out", action: () => controller.navigateToLogin()),
         Container(
               height: MediaQuery.of(context).size.width * 0.2,
               width: MediaQuery.of(context).size.width * 0.2,

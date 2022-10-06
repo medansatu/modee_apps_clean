@@ -28,13 +28,14 @@ class CartController extends Controller {
   Cart get cart => _cart;
 
   int itemTotal = 0;
-  // int get itemTotal => _itemTotal;
   int _grandTotal = 0;
   int get grandTotal => _grandTotal;
 
   int sumTotal() {       
-      _grandTotal += itemTotal; 
-      return _grandTotal;         
+      _grandTotal += itemTotal;
+      // refreshUI();   
+      return _grandTotal;
+             
   }
 
   int total() {

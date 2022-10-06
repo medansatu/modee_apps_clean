@@ -56,6 +56,9 @@ class UserRepositoryImpl implements UserRepository {
       print("SELESAI LOGIN");
       return user;
     } catch (e) {
+      if (e is DioError) {
+        print("Errornya: ${e.message}");
+      }
       rethrow;
     }
   }}
