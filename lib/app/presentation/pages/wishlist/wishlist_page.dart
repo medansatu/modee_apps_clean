@@ -24,6 +24,7 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
 
   @override
   Widget get view => Scaffold(
+        key: globalKey,
         appBar: AppBar(
           leading: Padding(
             padding: EdgeInsets.all(10),
@@ -43,10 +44,10 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
 
           return controller.isLoading
               ? Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).accentColor,
-                    ),
-                  )
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).accentColor,
+                  ),
+                )
               : controller.wishlist.wishlistItems.isEmpty
                   ? Center(
                       child: Column(
@@ -78,14 +79,18 @@ class _WishlistViewState extends ViewState<WishlistPage, WishlistController> {
                                       controller.wishlist.wishlistItems[index]
                                           ['productId']);
                               return WishlistItem(
-                                  id: wishlistItem['id'],
-                                  productName:
-                                      selectedProduct.productName.toString(),
-                                  productId: selectedProduct.id,
-                                  imageUrl:
-                                      selectedProduct.imageUrl.toString(),
-                                      price: int.parse(selectedProduct.price.toString()),
-                                      action: () => controller.deleteWishlist(wishlistItem['id']),);
+                                id: wishlistItem['id'],
+                                productName:
+                                    selectedProduct.productName.toString(),
+                                productId: selectedProduct.id,
+                                imageUrl: selectedProduct.imageUrl.toString(),
+                                price:
+                                    int.parse(selectedProduct.price.toString()),
+                                action: () => controller
+                                    .deleteWishlist(wishlistItem['id']),
+                                route: () => controller
+                                    .navigateToProductDetail(selectedProduct),
+                              );
                             })),
                       ),
                     ]);

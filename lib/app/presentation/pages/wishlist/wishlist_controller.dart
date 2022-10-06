@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
+import '../../../../domain/entitites/product.dart';
+import '../ProductDetail/product_detail_page.dart';
 import './wishlist_presenter.dart';
 import '../../../../domain/entitites/wishlist.dart';
 
@@ -43,6 +45,11 @@ class WishlistController extends Controller {
       _presenter.getWishlist();
       _isDeleted = false;
     }    
+  }
+
+  void navigateToProductDetail(Product arguments) {
+    final context = getContext();
+    Navigator.pushNamed(context, ProductDetailPage.routeName, arguments: arguments);
   }
 
   void _initObserver() {
