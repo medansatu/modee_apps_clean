@@ -11,6 +11,7 @@ import '../../widgets/text_input.dart';
 import '../../widgets/password_input.dart';
 import '../../widgets/login_register_text.dart';
 import '../../widgets/login_register_button.dart';
+import '../../widgets/pop_up_message.dart';
 
 class RegisterPage extends View {
   RegisterPage({Key? key}) : super(key: key);
@@ -32,10 +33,10 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
         body: ControlledWidgetBuilder<RegisterController>(
           builder: (BuildContext context, RegisterController controller) =>
               Stack(
-                children: [
-                  SingleChildScrollView(
-            padding: EdgeInsets.only(top: 30),
-            child: Column(
+            children: [
+              SingleChildScrollView(
+                padding: EdgeInsets.only(top: 30),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -85,9 +86,12 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                       text2: "Login Here!",
                       route: () => controller.navigateToLogin(),
                     ),
-                    LoginRegisterButton(text: "Register", action: (){
-                      if(controller.passwordController.text == controller.confirmPasswordController.text){
-                            controller.registerNow(
+                    LoginRegisterButton(
+                      text: "Register",
+                      action: () {
+                        if (controller.passwordController.text ==
+                            controller.confirmPasswordController.text) {
+                          controller.registerNow(
                             controller.nameController.text,
                             controller.usernameController.text,
                             controller.emailController.text,
@@ -95,20 +99,36 @@ class _RegisterViewState extends ViewState<RegisterPage, RegisterController> {
                             controller.addressController.text,
                             controller.passwordController.text,
                           );
-                          }
-                    },
-                   ),                    
+                        } else if (controller.passwordController.text !=
+                            controller.confirmPasswordController.text) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => PopUpMessage(
+                              text: "Register Failed",
+                              buttonText: "OK",
+                              message: "Password did not match",
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ],
-            ),
-          ),
-          controller.isLoading ? Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
-                child: Center(child: CircularProgressIndicator(color: Theme.of(context).accentColor,),)
-              ) : SizedBox(),
-                ],
+                ),
               ),
+              controller.isLoading
+                  ? Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      decoration:
+                          BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ))
+                  : SizedBox(),
+            ],
+          ),
         ),
         backgroundColor: Theme.of(context).primaryColor,
       );
